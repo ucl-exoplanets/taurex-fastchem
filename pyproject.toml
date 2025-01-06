@@ -21,7 +21,7 @@ pyfastchem = "^3.1.2"
 numpy = "<2.0.0"
 taurex = "^3.1.14"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 Pygments = ">=2.10.0"
 black = ">=21.10b0"
 coverage = {extras = ["toml"], version = ">=6.2"}
