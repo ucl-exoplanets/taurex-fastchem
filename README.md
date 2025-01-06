@@ -3,6 +3,8 @@
 A Python wrapper built using the [TauREx](https://github.com/ucl-exoplanets/taurex3) is available.
 The wrapper also installs all available datafiles included with FastChem
 
+*Note: This plugin does not support condensation yet but will do in future versions.*
+
 ## Installation
 
 
@@ -14,7 +16,7 @@ pip install taurex-fastchem
 ### Installing from source
 
 
-To install from source a valid C/C++ compiler must be present. You can compile it by doing:
+To install from source can be done so like this:
 ```bash
 git clone https://github.com/ucl-exoplanets/taurex-fastchem
 cd taurex-fastchem
@@ -64,7 +66,7 @@ newton_error| | | | |
 max_chem_iter| | | | |
 max_press_iter| | | | |
 max_nedler_iter| | | | |
-longdouble| Use 80 bit floats for faster convergence | bool | False | |
+longdouble| Unused, for compatibility | bool | False | |
 
 ### Retrieval Parameters:
 

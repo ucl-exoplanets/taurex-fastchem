@@ -1,0 +1,53 @@
+[Global]
+xsec_path = /Users/ahmed/Documents/repos/Exo_Transmit/Opac
+cia_path = /Users/ahmed/Documents/taurex_files/taurex_cobweb/Input/cia/hitran
+
+[Chemistry]
+chemistry_type = fastchem
+with_ions = False
+
+
+[Temperature]
+profile_type = guillot
+T_irr = 1500.97764826
+
+[Pressure]
+profile_type = Simple
+atm_min_pressure = 1e-0
+atm_max_pressure = 1e6
+nlayers = 30
+
+[Planet]
+planet_type = Simple
+planet_mass = 1.0
+planet_radius = 0.999430455828
+
+[Star]
+star_type = blackbody
+temperature = 5800
+
+[Model]
+model_type = transmission
+    [[Absorption]]
+    [[CIA]]
+    [[Rayleigh]]
+
+[Observation]
+observed_spectrum = observation
+
+[Optimizer]
+optimizer = nestle
+num_live_points = 100
+
+[Fitting]
+planet_radius:fit = True
+planet_radius:bounds = 0.5, 1.8
+T_irr:fit = True
+T_irr:bounds = 1200.0,4000.0
+
+C_O_ratio:fit = True
+C_O_ratio:bounds = 0.1, 0.7
+metallicity:fit = True
+metallicity:prior = "LogUniform(-2,2)"
+
+

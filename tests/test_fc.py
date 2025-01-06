@@ -129,3 +129,34 @@ def test_taurex_detect():
     fc = cf.find_klass_from_keyword("fastchem3")
 
     assert fc is not None
+
+
+def test_fc_chemistry_changes():
+    """Tests to make sure the chemistry physically changes when fitting parameter changes."""
+    import numpy as np
+
+    temperature = np.linspace(2000, 1000, 10)
+    pressure = np.linspace(1e6, 1e-4, 10)
+
+    fc = FastChem(selected_elements=["H", "He", "O", "C", "N"])
+
+    fc.initialize_chemistry(10, temperature, pressure)
+
+    mix_profile = fc.mixProfile.copy()
+
+    fc.fitting_parameters()["metallicity"][3](5.0)
+
+    fc.initialize_chemistry(10, temperature, pressure)
+
+    mix_profile_met = fc.mixProfile.copy()
+
+    assert not np.allclose(mix_profile, mix_profile_met)
+
+    fc.fitting_parameters()["C_O_ratio"][3](0.5)
+
+    fc.initialize_chemistry(10, temperature, pressure)
+
+    mix_profile_c = fc.mixProfile.copy()
+
+    assert not np.allclose(mix_profile_met, mix_profile_c)
+    assert not np.allclose(mix_profile, mix_profile_c)

@@ -1,5 +1,6 @@
 """Test utilities."""
 
+import pytest
 import numpy as np
 
 
@@ -13,6 +14,17 @@ def test_abundance_to_string():
     expected = "# Need this in the beginning\nH 7.40000000e-01\nHe 2.40000000e-01\nC 1.00000000e-02\nN 1.00000000e-02\nO 1.00000000e-02\n"
 
     assert _abundance_to_string(elements, abundances) == expected
+
+
+def test_abundance_to_string_error():
+    """Test abundance to string conversion."""
+    from taurex_fastchem.util import _abundance_to_string
+
+    elements = ["H", "He", "C", "N", "O"]
+    abundances = np.array([0.74, 0.24, 0.01, 0.01])
+
+    with pytest.raises(ValueError):
+        _abundance_to_string(elements, abundances)
 
 
 def test_get_selected_default():
@@ -74,6 +86,43 @@ def test_fix_element_abundance_order_no_change():
     assert fix_element_abundance_order(elements, abundances) == (
         elements,
         abundances,
+    )
+
+
+def test_fix_element_abundance_h_he_o():
+    """Test each branch of the fix_element_abundance_order function."""
+    from taurex_fastchem.util import fix_element_abundance_order
+
+    elements = ["C", "N", "O"]
+    abundances = [0.74, 0.24, 0.01]
+
+    assert fix_element_abundance_order(elements, abundances) == (
+        ["O", "C", "N"],
+        [0.01, 0.74, 0.24],
+    )
+
+    elements = ["C", "N", "He"]
+    abundances = [0.74, 0.24, 0.01]
+
+    assert fix_element_abundance_order(elements, abundances) == (
+        ["He", "C", "N"],
+        [0.01, 0.74, 0.24],
+    )
+
+    elements = ["C", "N", "H"]
+    abundances = [0.74, 0.24, 0.01]
+
+    assert fix_element_abundance_order(elements, abundances) == (
+        ["H", "C", "N"],
+        [0.01, 0.74, 0.24],
+    )
+
+    elements = ["e-", "N", "C"]
+    abundances = [0.74, 0.24, 0.01]
+
+    assert fix_element_abundance_order(elements, abundances) == (
+        ["N", "C", "e-"],
+        [0.24, 0.01, 0.74],
     )
 
 

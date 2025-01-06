@@ -189,10 +189,6 @@ class FastChem(AutoChemistry):
 
         self._fc.setElementAbundances(new_elem_abund)
 
-    def reset_abundances(self):
-        """Reset the abundances to the original values."""
-        self._fc.setElementAbundances(list(self.elem_abundance.values()))
-
     def initialize_chemistry(
         self, nlayers, temperature_profile, pressure_profile, altitude_profile=None
     ):
