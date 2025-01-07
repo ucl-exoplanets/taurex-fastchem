@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "taurex-fastchem"
-version = "1.0.0"
+version = "1.1.0"
 description = "TauRex FastChem"
 authors = ["Ahmed F. Al-Refaie <ahmed.al-refaie.12@ucl.ac.uk>"]
 license = "MIT"
@@ -20,6 +20,9 @@ python = ">=3.9,<3.13"
 pyfastchem = "^3.1.2"
 numpy = "<2.0.0"
 taurex = "^3.1.14"
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">1.8"
 
 [tool.poetry.group.dev.dependencies]
 Pygments = ">=2.10.0"
